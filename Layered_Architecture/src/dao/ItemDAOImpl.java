@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import db.DBConnection;
 import model.ItemDTO;
 
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements CrudDAO<ItemDTO ,String> {
+public class ItemDAOImpl implements CrudDAO<ItemDTO ,String>,ItemDAO{
     @Override
     public ArrayList<ItemDTO> loadAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Item");
@@ -22,6 +23,16 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO ,String> {
         return SQLUtil.execute("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", dto.getCode(), dto.getDescription(), dto.getUnitPrice(), dto.getQtyOnHand());
 
     }
+
+    @Override
+    public ItemDTO search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Item WHERE code=?", id);
+        if (rst.next()) {
+            return new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(3), rst.getInt(4));
+        }
+        return null;
+    }
+
     @Override
     public boolean delete(String code) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("DELETE FROM Item WHERE code=?", code);
@@ -50,4 +61,13 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO ,String> {
 
     }
 
+    @Override
+    public ArrayList searchItemCount(int Count) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Item WHERE qtyOnHand >=?",Count);
+        ArrayList<ItemDTO>itemDTOS = new ArrayList<>();
+        while (rst.next()){
+            System.out.println(itemDTOS.add(new ItemDTO(rst.getString("description"))));
+        }
+        return  itemDTOS;
+    }
 }

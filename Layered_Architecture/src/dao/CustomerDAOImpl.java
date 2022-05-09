@@ -5,7 +5,7 @@ import model.CustomerDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String> {
+public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String>, CustomerDAO {
 
     @Override
     public ArrayList<CustomerDTO> loadAll() throws SQLException, ClassNotFoundException {
@@ -21,6 +21,15 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String> {
     @Override
     public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         return SQLUtil.execute("INSERT INTO Customer (id,name, address) VALUES (?,?,?)", dto.getId(), dto.getName(), dto.getAddress());
+    }
+
+    @Override
+    public CustomerDTO search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer WHERE id=?", id);
+        if (rst.next()) {
+            return new CustomerDTO(rst.getString(1), rst.getString(2), rst.getString(3));
+        }
+        return null;
     }
 
     @Override
@@ -51,4 +60,13 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO,String> {
         }
     }
 
+    @Override
+    public ArrayList<CustomerDTO> searchCustomer(String letter) throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT * FROM customer WHERE NAME LIKE '"+letter+"%'");
+        ArrayList<CustomerDTO> customers = new ArrayList<>();
+        while (rst.next()){
+            customers.add(new CustomerDTO(rst.getString(2)));
+        }
+        return customers;
+    }
 }

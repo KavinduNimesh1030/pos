@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.CrudDAO;
 import dao.CustomerDAOImpl;
+import dao.CustomerDAO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,6 +80,7 @@ public class ManageCustomersFormController {
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
             }
+            selectCustomers();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -87,6 +89,20 @@ public class ManageCustomersFormController {
         }
 
 
+    }
+    private  void selectCustomers(){
+        CustomerDAO newDAO = new CustomerDAOImpl();
+        try {
+            ArrayList<CustomerDTO> Customers =newDAO.searchCustomer("k");
+            for (CustomerDTO customerDTO :Customers){
+                System.out.println(customerDTO.getName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initUI() {

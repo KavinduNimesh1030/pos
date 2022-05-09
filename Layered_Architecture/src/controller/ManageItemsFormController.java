@@ -79,13 +79,28 @@ public class ManageItemsFormController {
         tblItems.getItems().clear();
         try {
             /*Get all items*/
+            selectItem();
             ArrayList<ItemDTO> allItems = itemDAO.loadAll();
             for (ItemDTO item : allItems) {
                 tblItems.getItems().add(new ItemTM(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
             }
 
+
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    private  void selectItem(){
+        ItemDAO itemDAO = new ItemDAOImpl();
+        try {
+            ArrayList<ItemDTO> item =  itemDAO.searchItemCount(10);
+            for (ItemDTO itemDTO : item){
+                System.out.println(itemDTO.getDescription());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
