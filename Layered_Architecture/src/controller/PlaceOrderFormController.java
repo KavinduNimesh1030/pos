@@ -3,8 +3,15 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import dao.*;
+import dao.custom.CustomerDAO;
+import dao.custom.ItemDAO;
+import dao.custom.OrderDAO;
+import dao.custom.OrderDetailDAO;
+import dao.custom.impl.CustomerDAOImpl;
+import dao.custom.impl.ItemDAOImpl;
+import dao.custom.impl.OrderDAOImpl;
+import dao.custom.impl.OrderDetailDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -57,11 +64,11 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-   private final PlaceOrderDAO placeOrderDAO = new PlaceOrderDAOImpl();
-    private  final CrudDAO<ItemDTO,String> itemDAO = new ItemDAOImpl();
-    private  final  CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
-    private  final CrudDAO<OrderDetailDTO,String> orderDetailsDAO = new OrderDetailDAOImpl();
-    private  final CrudDAO<OrderDTO,String> orderDAO = new OrderDAOImpl();
+
+    private  final ItemDAO itemDAO = new ItemDAOImpl();
+    private  final CustomerDAO customerDAO = new CustomerDAOImpl();
+    private  final OrderDetailDAO orderDetailsDAO = new OrderDetailDAOImpl();
+    private  final OrderDAO orderDAO = new OrderDAOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 

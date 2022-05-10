@@ -2,10 +2,8 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import dao.CrudDAO;
-import dao.ItemDAO;
-import dao.ItemDAOImpl;
-import db.DBConnection;
+import dao.custom.ItemDAO;
+import dao.custom.impl.ItemDAOImpl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.CustomerDTO;
 import model.ItemDTO;
 import view.tdm.ItemTM;
 
@@ -43,7 +40,7 @@ public class ManageItemsFormController {
     public TableView<ItemTM> tblItems;
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
-    private final CrudDAO<ItemDTO ,String> itemDAO = new ItemDAOImpl();
+    private final ItemDAO itemDAO = new ItemDAOImpl();
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -93,7 +90,6 @@ public class ManageItemsFormController {
         }
     }
     private  void selectItem(){
-        ItemDAO itemDAO = new ItemDAOImpl();
         try {
             ArrayList<ItemDTO> item =  itemDAO.searchItemCount(10);
             for (ItemDTO itemDTO : item){
