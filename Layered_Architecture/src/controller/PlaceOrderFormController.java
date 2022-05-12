@@ -1,5 +1,6 @@
 package controller;
 
+import bo.PurchaseOrderBO;
 import bo.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -66,7 +67,7 @@ public class PlaceOrderFormController {
 //    private  final OrderDAO orderDAO = new OrderDAOImpl();
 //    private  final QueryDAO queryDAO = new QueryDAOImpl();
 
-    PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
+    PurchaseOrderBO purchaseOrderBO = new PurchaseOrderBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
