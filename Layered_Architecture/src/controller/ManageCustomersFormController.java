@@ -1,7 +1,7 @@
 package controller;
 
-import bo.CustomerBO;
-import bo.CustomerBOImpl;
+import bo.custom.CustomerBO;
+import bo.custom.impl.CustomerBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import dao.custom.impl.CustomerDAOImpl;
@@ -93,9 +93,9 @@ public class ManageCustomersFormController {
 
     }
     private  void selectCustomers(){
-        CustomerDAO newDAO = new CustomerDAOImpl();
+
         try {
-            ArrayList<CustomerDTO> Customers =newDAO.searchCustomer("k");
+            ArrayList<CustomerDTO> Customers =customerBO.searchCustomer("k");
             for (CustomerDTO customerDTO :Customers){
                 System.out.println(customerDTO.getName());
             }

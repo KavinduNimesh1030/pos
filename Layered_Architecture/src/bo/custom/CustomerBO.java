@@ -1,4 +1,4 @@
-package bo;
+package bo.custom;
 
 import model.CustomerDTO;
 
@@ -12,5 +12,6 @@ public interface CustomerBO {
      boolean existCustomer(String id) throws SQLException, ClassNotFoundException;
      boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException;
      String generateNewCustomerID() throws SQLException, ClassNotFoundException;
+     public ArrayList<CustomerDTO> searchCustomer(String letter) throws SQLException, ClassNotFoundException ;
 
 }

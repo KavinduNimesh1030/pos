@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CrudDAO<T, Id> {
+public interface CrudDAO<T, Id> extends SuperDAO {
     ArrayList<T> loadAll() throws SQLException, ClassNotFoundException;
 
     boolean save(T dto) throws SQLException, ClassNotFoundException;

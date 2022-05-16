@@ -1,6 +1,7 @@
-package bo;
+package bo.custom.impl;
 
-import dao.SQLUtil;
+import bo.custom.CustomerBO;
+import dao.DAOFactory;
 import dao.custom.CustomerDAO;
 import dao.custom.impl.CustomerDAOImpl;
 import model.CustomerDTO;
@@ -8,8 +9,8 @@ import model.CustomerDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CustomerBOImpl implements CustomerBO{
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+public class CustomerBOImpl implements CustomerBO {
+    private final CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         return customerDAO.loadAll();
@@ -33,6 +34,11 @@ public class CustomerBOImpl implements CustomerBO{
     @Override
     public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
         return customerDAO.generateNewID();
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> searchCustomer(String letter) throws SQLException, ClassNotFoundException {
+        return  customerDAO.searchCustomer(letter);
     }
 
 
