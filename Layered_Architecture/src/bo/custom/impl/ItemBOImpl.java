@@ -9,7 +9,7 @@ import model.ItemDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ItemBOImpl implements ItemBO {
+public class ItemBOImpl implements ItemBO,SuperBO {
     private final ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     @Override
     public ArrayList<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException {
